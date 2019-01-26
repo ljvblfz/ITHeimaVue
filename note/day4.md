@@ -1,178 +1,4 @@
-# Vue.js - Day3
-
-## 定义Vue组件
-什么是组件： 组件的出现，就是为了拆分Vue实例的代码量的，能够让我们以不同的组件，来划分不同的功能模块，将来我们需要什么样的功能，就可以去调用对应的组件即可；
-组件化和模块化的不同：
- + 模块化： 是从代码逻辑的角度进行划分的；方便代码分层开发，保证每个功能模块的职能单一；
- + 组件化： 是从UI界面的角度进行划分的；前端的组件化，方便UI组件的重用；
-### 全局组件定义的三种方式
-1. 使用 Vue.extend 配合 Vue.component 方法：
-```
-var login = Vue.extend({
-      template: '<h1>登录</h1>'
-    });
-    Vue.component('login', login);
-```
-2. 直接使用 Vue.component 方法：
-```
-Vue.component('register', {
-      template: '<h1>注册</h1>'
-    });
-```
-3. 将模板字符串，定义到script标签种：
-```
-<script id="tmpl" type="x-template">
-      <div><a href="#">登录</a> | <a href="#">注册</a></div>
-    </script>
-```
-同时，需要使用 Vue.component 来定义组件：
-```
-Vue.component('account', {
-      template: '#tmpl'
-    });
-```
-
-> 注意： 组件中的DOM结构，有且只能有唯一的根元素（Root Element）来进行包裹！
-
-### 组件中展示数据和响应事件
-1. 在组件中，`data`需要被定义为一个方法，例如：
-```
-Vue.component('account', {
-      template: '#tmpl',
-      data() {
-        return {
-          msg: '大家好！'
-        }
-      },
-      methods:{
-        login(){
-          alert('点击了登录按钮');
-        }
-      }
-    });
-```
-2. 在子组件中，如果将模板字符串，定义到了script标签中，那么，要访问子组件身上的`data`属性中的值，需要使用`this`来访问；
-
-### 【重点】为什么组件中的data属性必须定义为一个方法并返回一个对象
-1. 通过计数器案例演示
-
-### 使用`components`属性定义局部子组件
-1. 组件实例定义方式：
-```
-<script>
-    // 创建 Vue 实例，得到 ViewModel
-    var vm = new Vue({
-      el: '#app',
-      data: {},
-      methods: {},
-      components: { // 定义子组件
-        account: { // account 组件
-          template: '<div><h1>这是Account组件{{name}}</h1><login></login></div>', // 在这里使用定义的子组件
-          components: { // 定义子组件的子组件
-            login: { // login 组件
-              template: "<h3>这是登录组件</h3>"
-            }
-          }
-        }
-      }
-    });
-  </script>
-```
-2. 引用组件：
-```
-<div id="app">
-    <account></account>
-  </div>
-```
-
-## 使用`flag`标识符结合`v-if`和`v-else`切换组件
-1. 页面结构：
-```
-<div id="app">
-    <input type="button" value="toggle" @click="flag=!flag">
-    <my-com1 v-if="flag"></my-com1>
-    <my-com2 v-else="flag"></my-com2>
-  </div>
-```
-2. Vue实例定义：
-```
-<script>
-    Vue.component('myCom1', {
-      template: '<h3>奔波霸</h3>'
-    })
-
-    Vue.component('myCom2', {
-      template: '<h3>霸波奔</h3>'
-    })
-
-    // 创建 Vue 实例，得到 ViewModel
-    var vm = new Vue({
-      el: '#app',
-      data: {
-        flag: true
-      },
-      methods: {}
-    });
-  </script>
-```
-
-## 使用`:is`属性来切换不同的子组件,并添加切换动画
-1. 组件实例定义方式：
-```
-  // 登录组件
-    const login = Vue.extend({
-      template: `<div>
-        <h3>登录组件</h3>
-      </div>`
-    });
-    Vue.component('login', login);
-
-    // 注册组件
-    const register = Vue.extend({
-      template: `<div>
-        <h3>注册组件</h3>
-      </div>`
-    });
-    Vue.component('register', register);
-
-    // 创建 Vue 实例，得到 ViewModel
-    var vm = new Vue({
-      el: '#app',
-      data: { comName: 'login' },
-      methods: {}
-    });
-```
-2. 使用`component`标签，来引用组件，并通过`:is`属性来指定要加载的组件：
-```
-  <div id="app">
-    <a href="#" @click.prevent="comName='login'">登录</a>
-    <a href="#" @click.prevent="comName='register'">注册</a>
-    <hr>
-    <transition mode="out-in">
-      <component :is="comName"></component>
-    </transition>
-  </div>
-```
-3. 添加切换样式：
-```
-  <style>
-    .v-enter,
-    .v-leave-to {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-
-    .v-enter-active,
-    .v-leave-active {
-      position: absolute;
-      transition: all 0.3s ease;
-    }
-
-    h3{
-      margin: 0;
-    }
-  </style>
-```
+# Vue.js - Day4
 
 ## 父组件向子组件传值
 1. 组件实例定义方式，注意：一定要使用`props`属性来定义父组件传递过来的数据
@@ -244,6 +70,8 @@ Vue.component('account', {
   </script>
 ```
 
+## 组件中data和props的区别
+
 ## 评论列表案例
 目标：主要练习父子组件之间传值
 
@@ -288,9 +116,9 @@ Vue.component('account', {
 ```
 
 ## 什么是路由
-1. 对于普通的网站，所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源；
+1. **后端路由：**对于普通的网站，所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源；
 
-2. 对于单页面应用程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求中不会包含hash相关的内容；所以，单页面程序中的页面跳转主要用hash实现；
+2. **前端路由：**对于单页面应用程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求中不会包含hash相关的内容；所以，单页面程序中的页面跳转主要用hash实现；
 
 3. 在单页面应用程序中，这种通过hash改变来切换页面的方式，称作前端路由（区别于后端路由）；
 
@@ -341,6 +169,10 @@ Vue.component('account', {
       router: router // 使用 router 属性来使用路由规则
     });
 ```
+
+## 使用tag属性指定router-link渲染的标签类型
+
+## 设置路由重定向
 
 ## 设置路由高亮
 
