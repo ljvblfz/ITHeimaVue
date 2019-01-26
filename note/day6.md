@@ -260,7 +260,7 @@ import 'mint-ui/lib/style.css'
 
 ```
 
-3. 在 vue 中使用 MintUI：
+3. 在 vue 中使用 MintUI中的Button按钮和Toast弹框提示：
 
 ```
 
@@ -277,8 +277,18 @@ Vue.use(MintUI)
 ```
 
 
+## Mint-UI中按需导入的配置方式
 
-## 使用 MUI 组件
+
+
+## 使用 MUI 代码片段
+> 注意： MUI 不同于 Mint-UI，MUI只是开发出来的一套好用的代码片段，里面提供了配套的样式、配套的HTML代码段，类似于 Bootstrap； 而 Mint-UI，是真正的组件库，是使用 Vue 技术封装出来的 成套的组件，可以无缝的和 VUE项目进行集成开发；
+> 因此，从体验上来说， Mint-UI体验更好，因为这是别人帮我们开发好的现成的Vue组件；
+> 从体验上来说， MUI和Bootstrap类似；
+> 理论上，任何项目都可以使用 MUI 或 Bootstrap，但是，MInt-UI只适用于Vue项目；
+
+
+注意： MUI 并不能使用  npm 去下载，需要自己手动从 github 上，下载现成的包，自己解压出来，然后手动拷贝到项目中使用；
 
 [官网首页](http://dev.dcloud.net.cn/mui/)
 
