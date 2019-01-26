@@ -470,5 +470,7 @@ var register = Vue.extend({
 2. 使用`nrm ls`查看当前所有可用的镜像源地址以及当前所使用的镜像源地址；
 3. 使用`nrm use npm`或`nrm use taobao`切换不同的镜像源地址；
 
+> 注意： nrm 只是单纯的提供了几个常用的 下载包的 URL地址，并能够让我们在 这几个 地址之间，很方便的进行切换，但是，我们每次装包的时候，使用的 装包工具，都是  npm
+
 ## 相关文件
 1. [URL中的hash（井号）](http://www.cnblogs.com/joyho/articles/4430148.html)
